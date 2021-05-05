@@ -14,6 +14,13 @@ private enum class FanSpeed(val label: Int) {
     LOW(R.string.fan_low),
     MEDIUM(R.string.fan_medium),
     HIGH(R.string.fan_high);
+
+    fun next() = when (this) {
+        OFF -> LOW
+        LOW -> MEDIUM
+        MEDIUM -> HIGH
+        HIGH -> OFF
+    }
 }
 
 //For drawing the dial indicators and labels.
@@ -40,7 +47,27 @@ class DialView @JvmOverloads constructor(
         typeface = Typeface.create( "", Typeface.BOLD)
     }
 
-    //calculcate size for the dial
+//Setting the view's isClickable property to true enables that view to accept user input.
+    init {
+        isClickable = true
+    }
+
+    override fun performClick(): Boolean {
+        //Call to super.performClick() must happen 1st,
+        // which enables accessibility events as well as calls onClickListener().
+        if (super.performClick()) return true
+        //increment fan's speed with the next() method
+        fanSpeed = fanSpeed.next()
+        //set content description to the string resource representing the current speed
+        contentDescription = resources.getString(fanSpeed.label)
+        //invalidates the entire view, forcing a call to onDraw() to redraw the view
+        //If something in your custom view changes, including user interaction,
+        //and the change needs to be displayed, call invalidate()
+        invalidate()
+        return true
+    }
+
+    //Calculate size for the dial
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         radius = (min(width, height) / 2.0 * 0.8).toFloat()
     }
