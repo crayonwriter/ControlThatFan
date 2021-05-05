@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.withStyledAttributes
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
@@ -53,6 +54,11 @@ class DialView @JvmOverloads constructor(
 //Setting the view's isClickable property to true enables that view to accept user input.
     init {
         isClickable = true
+    context.withStyledAttributes(attrs, R.styleable.DialView) {
+        fanSpeedLowColor = getColor(R.styleable.DialView_fanColor1, 0)
+        fanSpeedMediumColor = getColor(R.styleable.DialView_fanColor2, 0)
+        fanSeedMaxColor = getColor(R.styleable.DialView_fanColor3, 0)
+    }
     }
 
     override fun performClick(): Boolean {
