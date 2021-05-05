@@ -92,7 +92,16 @@ class DialView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         //Set dial background color to green if selection is not "off"
-        paint.color =  if(fanSpeed == FanSpeed.OFF) Color.GRAY else Color.GREEN
+//        paint.color =  if(fanSpeed == FanSpeed.OFF) Color.GRAY else Color.GREEN
+
+        //Set the dial color based on the current fan speed.
+        paint.color = when (fanSpeed) {
+            FanSpeed.OFF -> Color.GRAY
+            FanSpeed.LOW -> fanSpeedLowColor
+            FanSpeed.MEDIUM -> fanSpeedMediumColor
+            FanSpeed.HIGH -> fanSeedMaxColor
+        } as Int
+
         canvas?.drawCircle((width/2).toFloat(), (height/2).toFloat(), radius, paint)
 
         val markerRadius = radius + RADIUS_OFFSET_INDICATOR
