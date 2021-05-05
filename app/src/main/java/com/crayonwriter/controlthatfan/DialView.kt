@@ -37,6 +37,9 @@ class DialView @JvmOverloads constructor(
     //Variables to draw the custom view
     private var radius = 0.0f                   // Radius of the circle.
     private var fanSpeed = FanSpeed.OFF         // The active selection.
+    private var fanSpeedLowColor = 0
+    private var fanSpeedMediumColor = 0
+    private var fanSeedMaxColor = 0
     // position variable which will be used to draw label and indicator circle position
     private val pointPosition: PointF = PointF(0.0f, 0.0f)
 
